@@ -1,0 +1,9 @@
+**/.idea/*
+**/target/*
+**/out/*
+**/.vscode/*
+**/metadata/*
+**/*.iml
+**/*.iws
+**/log/
+/src/main/resources/META-INF/MANIFEST.MF
