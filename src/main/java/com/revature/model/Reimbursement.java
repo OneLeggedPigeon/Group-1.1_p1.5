@@ -1,4 +1,4 @@
-package com.project1.model;
+package com.revature.model;
 
 import java.sql.Timestamp;
 

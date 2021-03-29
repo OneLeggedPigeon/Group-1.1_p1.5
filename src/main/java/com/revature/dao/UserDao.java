@@ -1,4 +1,4 @@
-package com.project1.dao;
+package com.revature.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.project1.model.User;
+import com.revature.model.User;
 import com.project1.util.ConnectionUtil;
 
 /*

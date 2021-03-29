@@ -1,4 +1,4 @@
-package com.project1.dao;
+package com.revature.dao;
 
 import java.util.List;
 

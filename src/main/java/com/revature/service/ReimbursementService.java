@@ -1,12 +1,12 @@
-package com.project1.service;
+package com.revature.service;
 
 import java.util.List;
 
+import com.revature.model.Reimbursement;
 import org.apache.log4j.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project1.dao.ReimbursementDao;
-import com.project1.model.Reimbursement;
+import com.revature.dao.ReimbursementDao;
 
 public class ReimbursementService {
 	private ReimbursementDao rd;

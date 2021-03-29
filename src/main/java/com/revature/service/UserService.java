@@ -1,4 +1,4 @@
-package com.project1.service;
+package com.revature.service;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.project1.dao.UserDao;
-import com.project1.model.User;
+import com.revature.dao.UserDao;
+import com.revature.model.User;
 
 public class UserService {
 	private UserDao ud;
