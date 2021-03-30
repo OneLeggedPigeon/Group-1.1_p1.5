@@ -3,6 +3,7 @@ package com.revature.dao;
 import java.util.List;
 
 public interface GenericDao <T> {
+	// TODO: potentially implement Hibernate session logic here
 	List<T> getList();
 	T getById(int id);
 	List<T> getByUserId(int id);
