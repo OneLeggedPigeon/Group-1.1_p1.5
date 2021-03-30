@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.util.ConnectionUtil;
 
-/*
+/**
  * Purpose of this Dao is to send/retrieve info about a reimbursement
  * to/from the database. It then returns the composed Reimbursement Object.
  */

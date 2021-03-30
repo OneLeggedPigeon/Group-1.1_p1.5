@@ -8,6 +8,10 @@ import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.dao.ReimbursementDao;
 
+/**
+ * Calls ReimbursementDao methods to perform persistence actions and handles business logic
+ * related to info being persisted to or retrieved from the database.
+ */
 public class ReimbursementService {
 	private ReimbursementDao rd;
 	private static final Logger LOGGER = Logger.getLogger(ReimbursementService.class);

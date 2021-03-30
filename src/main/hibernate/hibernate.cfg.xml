@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        " http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <property name = "hibernate.dialect">
+            org.hibernate.dialect.PostgreSQL9Dialect
+        </property>
+
+        <property name = "hibernate.connection.driver_class">
+            org.postgresql.Driver
+        </property>
+
+        <property name = "hibernate.connection.url">
+            <!--insert db connection url here-->
+        </property>
+
+        <property name = "hibernate.connection.username">
+            <!--insert db username here-->
+        </property>
+
+        <property name = "hibernate.connection.password">
+            <!--insert db password here-->
+        </property>
+
+        <!-- Echo all executed SQL to stdout; change if necessary-->
+        <property name="show_sql">true</property>
+
+        <mapping class = "com.revature.model.User"/>
+        <mapping class = "com.revature.model.Reimbursement"/>
+
+    </session-factory>
+</hibernate-configuration>
