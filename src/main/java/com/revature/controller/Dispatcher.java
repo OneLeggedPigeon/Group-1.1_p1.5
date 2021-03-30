@@ -14,8 +14,8 @@ import java.util.Optional;
 
 //https://www.tutorialspoint.com/design_pattern/front_controller_pattern.htm
 public class Dispatcher {
-    private ReimbursementDao reimbursementView;
-    private UserDao userView;
+    private final ReimbursementDao reimbursementView;
+    private final UserDao userView;
 
     public Dispatcher(){
         reimbursementView = new ReimbursementDao();
@@ -61,6 +61,10 @@ public class Dispatcher {
             case POST:
                 break;
             case DELETE:
+                if (req.getParameter("id") != null){
+                    dao.delete(dao.getById(Integer.parseInt(req.getParameter("id"))));
+                    out.println("DELETED");
+                }
                 break;
             default:
                 RuntimeException e = new RuntimeException("You shouldn't have come here!");
