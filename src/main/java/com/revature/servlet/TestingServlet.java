@@ -11,7 +11,7 @@ public class TestingServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        System.out.println(req.toString());
+        System.out.println("GET: "+req.toString());
 
         PrintWriter out = resp.getWriter();
         out.println("<HTML>");
@@ -27,8 +27,24 @@ public class TestingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        System.out.println("POST: "+req.getParameter("testString"));
+
         String orderNumber = req.getParameter("testString");
         System.out.println(orderNumber);
         resp.getWriter().print(orderNumber);
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("PUT: "+req.getParameter("testString"));
+
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        System.out.println("DELETE: "+req.getParameter("testString"));
+
     }
 }
