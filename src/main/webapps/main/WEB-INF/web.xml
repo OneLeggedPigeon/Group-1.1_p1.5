@@ -5,64 +5,12 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         version="2.5">
 
-<!-- add into your tomcatDir/conf/server.xml as a child of the GlobalNamingResources element
-
-<Resource name="jdbc/postgres" type="javax.sql.DataSource" global="jdbc/postgres" username="enterprise_associate" password="password"
-              driverClassName="org.postgresql.Driver" url="jdbc:postgresql://postgresql-class.cks98gmxels6.us-west-1.rds.amazonaws.com:5432/enterprise?currentSchema=enterprise_study"
-              validationQuery="select floor(1.5)"
-              maxActive="6"
-              maxIdle="1">
-
-      and add this into your tomcatDir/conf/context.xml as a child of the context element
-
-      	<ResourceLink name="jdbc/psql" global="jdbc/postgres" type="javax.sql.DataSource" />
-
- -->
-<!--    <resource-ref>-->
-<!--        <res-ref-name>jdbc/psql</res-ref-name>-->
-<!--        <res-type>javax.sql.DataSource</res-type>-->
-<!--        <mapped-name>jdbc/postgres</mapped-name>-->
-
-<!--    </resource-ref>-->
-
-<welcome-file-list>
-    <welcome-file>welcome.html</welcome-file>
-</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>welcome.html</welcome-file>
+    </welcome-file-list>
 
     <context-param>
         <param-name>global</param-name>
         <param-value>params</param-value>
     </context-param>
-
-<!--    <servlet>-->
-<!--        <servlet-name>test</servlet-name>-->
-<!--        <servlet-class>com.revature.servlet.TestingServlet</servlet-class>-->
-<!--        <load-on-startup>0</load-on-startup>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>test</servlet-name>-->
-<!--        <url-pattern>/test</url-pattern>-->
-<!--    </servlet-mapping>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>test</servlet-name>-->
-<!--        <url-pattern>*.test</url-pattern>-->
-<!--    </servlet-mapping>-->
-
-<!--    <servlet>-->
-<!--        <servlet-name>ses</servlet-name>-->
-<!--        <servlet-class>dev.enterprise.servlet.SessionServlet</servlet-class>-->
-<!--    </servlet>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>session</servlet-name>-->
-<!--        <url-pattern>/ses</url-pattern>-->
-<!--    </servlet-mapping>-->
-
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>ses</servlet-name>-->
-<!--        <url-pattern>/session</url-pattern>-->
-<!--    </servlet-mapping>-->
-
 </web-app>
