@@ -8,8 +8,9 @@ import java.util.List;
  *
  * @param <T>
  */
+//https://www.splessons.com/lesson/hibernate-servlet-integration/
 public interface GenericDao <T> {
-	// TODO: potentially include Hibernate session methods here
+	// TODO: potentially implement Hibernate session logic here
 	List<T> getList();
 	T getById(int id);
 	List<T> getByUserId(int id);
