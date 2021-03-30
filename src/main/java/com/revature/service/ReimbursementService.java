@@ -12,7 +12,7 @@ import com.revature.dao.ReimbursementDao;
  * Calls ReimbursementDao methods to perform persistence actions and handles business logic
  * related to info being persisted to or retrieved from the database.
  */
-public class ReimbursementService {
+public class ReimbursementService implements GenericService<Reimbursement> {
 	private ReimbursementDao rd;
 	private static final Logger LOGGER = Logger.getLogger(ReimbursementService.class);
 	

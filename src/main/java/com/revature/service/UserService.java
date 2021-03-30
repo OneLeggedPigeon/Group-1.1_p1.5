@@ -14,19 +14,21 @@ import com.revature.model.User;
  * Calls UserDao methods to perform persistence actions and handles business logic
  * related to info being persisted to or retrieved from the database.
  */
-public class UserService {
+public class UserService implements GenericService<User> {
 	private UserDao ud;
 	private static final Logger LOGGER = Logger.getLogger(UserService.class);
 	
 	public UserService() {
 		ud = new UserDao();
 	}
-	
-	public List<User> fetchAllUsers() {
+
+	@Override
+	public List<User> getList() {
 		return ud.getList();
 	}
-	
-	public User getUserById(int id) {
+
+	@Override
+	public User getById(int id) {
 		return ud.getById(id);
 	}
 	
