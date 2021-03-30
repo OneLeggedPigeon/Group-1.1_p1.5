@@ -10,6 +10,10 @@ import org.apache.log4j.Logger;
 import com.revature.dao.UserDao;
 import com.revature.model.User;
 
+/**
+ * Calls UserDao methods to perform persistence actions and handles business logic
+ * related to info being persisted to or retrieved from the database.
+ */
 public class UserService {
 	private UserDao ud;
 	private static final Logger LOGGER = Logger.getLogger(UserService.class);

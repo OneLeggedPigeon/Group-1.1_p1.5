@@ -1,6 +1,7 @@
 package com.revature.model;
 
 public class User {
+	// TODO: add Hibernate JPA annotations to class and fields
 	private int user_id;
 	private String username;
 	private String password;

@@ -3,6 +3,7 @@ package com.revature.model;
 import java.sql.Timestamp;
 
 public class Reimbursement {
+	// TODO: add Hibernate JPA annotations to class and fields
 	private int id;
 	private float amount;
 	private Timestamp submitted;

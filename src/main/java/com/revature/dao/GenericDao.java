@@ -2,6 +2,12 @@ package com.revature.dao;
 
 import java.util.List;
 
+/**
+ * Provides generic methods for dao. Also handles Hibernate session
+ * creation and transaction control methods.
+ *
+ * @param <T>
+ */
 //https://www.splessons.com/lesson/hibernate-servlet-integration/
 public interface GenericDao <T> {
 	// TODO: potentially implement Hibernate session logic here

@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import com.revature.model.User;
 import com.revature.util.ConnectionUtil;
 
-/*
+/**
  * Purpose of this Dao is to send/retrieve info about a user
  * to/from the database. It then returns the composed User Object.
  */
