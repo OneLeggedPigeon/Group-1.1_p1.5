@@ -1,7 +1,5 @@
 package com.revature.controller;
 
-import com.revature.servlet.httpMethod;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,14 +37,14 @@ public class FrontController {
         System.out.println("Page requested: " + req);
     }
 
-    public void dispatchRequest(Class<? extends HttpServlet> clazz, httpMethod httpMethod, HttpServletRequest req, HttpServletResponse resp)
+    public void dispatchRequest(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         //log each request
         trackRequest(req);
 
         //authenticate the user
         if(isAuthenticUser()){
-            dispatcher.dispatch(clazz, httpMethod, req, resp);
+            dispatcher.dispatch(clazz, req, resp);
         }
     }
 }

@@ -13,21 +13,21 @@ public abstract class CustomServlet extends HttpServlet {
     FrontController front = FrontController.getInstance();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        front.dispatchRequest(this.getClass(), httpMethod.GET , req, resp);
+        front.dispatchRequest(this.getClass(), req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        front.dispatchRequest(this.getClass(), httpMethod.POST , req, resp);
+        front.dispatchRequest(this.getClass(), req, resp);
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        front.dispatchRequest(this.getClass(), httpMethod.PUT , req, resp);
+        front.dispatchRequest(this.getClass(), req, resp);
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        front.dispatchRequest(this.getClass(), httpMethod.DELETE , req, resp);
+        front.dispatchRequest(this.getClass(), req, resp);
     }
 }

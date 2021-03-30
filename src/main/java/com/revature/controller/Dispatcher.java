@@ -23,7 +23,7 @@ public class Dispatcher {
     }
 
     @SuppressWarnings("rawtypes")
-    public void dispatch(Class<? extends HttpServlet> clazz, httpMethod method, HttpServletRequest req, HttpServletResponse resp)
+    public void dispatch(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         GenericDao dao;
@@ -39,8 +39,8 @@ public class Dispatcher {
             e.printStackTrace();
             throw e;
         }
-        switch(method){
-            case GET:
+        switch(req.getMethod()){
+            case "GET":
                 if (req.getParameter("id") != null){
                     out.println(dao.getById(Integer.parseInt(req.getParameter("id"))).toString());
                 } else if (req.getParameter("username") != null){
@@ -56,11 +56,11 @@ public class Dispatcher {
                     }
                 }
                 break;
-            case PUT:
+            case "PUT":
                 break;
-            case POST:
+            case "POST":
                 break;
-            case DELETE:
+            case "DELETE":
                 if (req.getParameter("id") != null){
                     dao.delete(dao.getById(Integer.parseInt(req.getParameter("id"))));
                     out.println("DELETED");
