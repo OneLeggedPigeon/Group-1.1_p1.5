@@ -2,6 +2,7 @@ package com.revature.dao;
 
 import java.util.List;
 
+//https://www.splessons.com/lesson/hibernate-servlet-integration/
 public interface GenericDao <T> {
 	// TODO: potentially implement Hibernate session logic here
 	List<T> getList();
