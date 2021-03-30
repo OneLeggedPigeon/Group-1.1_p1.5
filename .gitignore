@@ -2,6 +2,7 @@
 **/target/*
 **/out/*
 **/.vscode/*
+**/.gradle/*
 **/metadata/*
 **/*.iml
 **/*.iws
