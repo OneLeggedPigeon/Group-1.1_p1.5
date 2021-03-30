@@ -36,7 +36,7 @@
 
     <servlet>
         <servlet-name>first</servlet-name>
-        <servlet-class>dev.enterprise.servlet.FirstTomcatServlet</servlet-class>
+        <servlet-class>com.revature.servlet.TestingServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>
 
