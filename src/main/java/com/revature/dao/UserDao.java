@@ -11,14 +11,16 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.revature.model.User;
-import com.project1.util.ConnectionUtil;
+import com.revature.util.ConnectionUtil;
 
 /*
- * Purpose of this Dao is to send/retrieve info about a reimbursement
- * to/from the database. It then returns the composed Reimbursement Object.
+ * Purpose of this Dao is to send/retrieve info about a user
+ * to/from the database. It then returns the composed User Object.
  */
 public class UserDao implements GenericDao <User> {
 	private static final Logger LOGGER = Logger.getLogger(UserDao.class);
+
+	// TODO: determine if Hibernate's session creation logic goes here or in GenericDao
 
 	private User objectConstructor(ResultSet rs) throws SQLException {
 		return new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
@@ -27,6 +29,7 @@ public class UserDao implements GenericDao <User> {
 	
 	@Override
 	public List<User> getList() {
+		// TODO: use Hibernate session.findAll()
 		List<User> l = new ArrayList<User>();
 		
 		try (Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -47,6 +50,7 @@ public class UserDao implements GenericDao <User> {
 
 	@Override
 	public User getById(int id) {
+		// TODO: use Hibernate session.find()
 		User u = null;
 		
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -68,12 +72,13 @@ public class UserDao implements GenericDao <User> {
 	
 	@Override
 	public List<User> getByUserId(int id) {
-		// TODO Auto-generated method stub
+		// TODO: use Hibernate session.find()
 		return null;
 	}
 	
 	@Override
 	public User getByUsername(String username) {
+		// TODO: use Hibernate session.find()
 		User u = null;
 		
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -97,13 +102,13 @@ public class UserDao implements GenericDao <User> {
 
 	@Override
 	public void insert(User t) {
-		// TODO Auto-generated method stub
+		// TODO: use Hibernate session.save()
 		
 	}
 
 	@Override
 	public void delete(User t) {
-		// TODO Auto-generated method stub
+		// TODO: use Hibernate session.delete()
 		
 	}
 }

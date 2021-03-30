@@ -24,6 +24,8 @@ import com.revature.util.ConnectionUtil;
  */
 public class ReimbursementDao implements GenericDao<Reimbursement> {
 	private static final Logger LOGGER = Logger.getLogger(ReimbursementDao.class);
+
+	// TODO: determine if Hibernate's session creation logic goes here or in GenericDao
 	
 	private Reimbursement objectConstructor(ResultSet rs) throws SQLException {
 		return new Reimbursement(rs.getInt(1), rs.getFloat(2), rs.getTimestamp(3), rs.getTimestamp(4),
@@ -32,6 +34,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 
 	@Override
 	public List<Reimbursement> getList() {
+		// TODO: use Hibernate session.findAll()
 		List<Reimbursement> l = new ArrayList<Reimbursement>();
 		
 		try (Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -55,6 +58,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 
 	@Override
 	public Reimbursement getById(int id) {
+		// TODO: use Hibernate session.find()
 		Reimbursement r = null;
 		
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -78,6 +82,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	
 	@Override
 	public List<Reimbursement> getByUserId(int id) {
+		// TODO: use Hibernate session.find()
 		List<Reimbursement> l = new ArrayList<Reimbursement>();
 		
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
@@ -101,12 +106,14 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	}
 	
 	public Reimbursement getByUsername(String username) {
+		// TODO: use Hibernate session.find() ... or not?
 		//Empty. Reason - No use.
 		return null;
 	}
 
 	@Override
 	public void insert(Reimbursement r) {
+		// TODO: use Hibernate session.save()
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
 			String sql = "INSERT INTO ers_reimbursement(reimb_amount, reimb_submitted, reimb_description, "
 					   + "reimb_author, reimb_status_id, reimb_type_id) VALUES(?, ?, ?, ?, ?, ?)";
@@ -129,6 +136,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	}
 	
 	public void updateList(int[][] i, int resolver) {
+		// TODO: use Hibernate session.update()
 		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
 			String aSql = "SELECT acceptarray(?, ?)";
 			String dSql = "SELECT denyarray(?, ?)";
@@ -173,7 +181,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	
 	@Override
 	public void delete(Reimbursement r) {
-		
+		// TODO: use Hibernate session.delete()
 	}
 	
 }
