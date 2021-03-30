@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+//TODO: Currently not Utilized
 public class SessionController {
 
     public void createSession(HttpServletRequest req, HttpServletResponse res) {

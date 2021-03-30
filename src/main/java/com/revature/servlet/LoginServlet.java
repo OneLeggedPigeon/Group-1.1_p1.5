@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-@WebServlet(urlPatterns = "/login",loadOnStartup = 1)
+//TODO: Currently not Utilized
+@WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     @Override
