@@ -5,6 +5,7 @@ import com.revature.gopo.service.ReimbursementService;
 import com.revature.gopo.service.UserService;
 import com.revature.gopo.servlet.ReimbursementServlet;
 import com.revature.gopo.servlet.UserServlet;
+import com.google.gson.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +20,9 @@ import java.util.Map;
 public class Dispatcher {
     private final ReimbursementService reimbursementView;
     private final UserService userView;
+
+    //TODO look at documentation
+    Gson test;
 
     public Dispatcher(){
         reimbursementView = new ReimbursementService();
