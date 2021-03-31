@@ -1,13 +1,10 @@
 package com.revature.gopo.controller;
 
-import com.revature.dao.*;
-import com.revature.gopo.dao.GenericDao;
-import com.revature.gopo.dao.ReimbursementDao;
-import com.revature.gopo.dao.UserDao;
+import com.revature.gopo.service.GenericService;
+import com.revature.gopo.service.ReimbursementService;
+import com.revature.gopo.service.UserService;
 import com.revature.gopo.servlet.ReimbursementServlet;
 import com.revature.gopo.servlet.UserServlet;
-import com.revature.model.*;
-import com.revature.servlet.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,60 +12,68 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 //https://www.tutorialspoint.com/design_pattern/front_controller_pattern.htm
 public class Dispatcher {
-    private final ReimbursementDao reimbursementView;
-    private final UserDao userView;
+    private final ReimbursementService reimbursementView;
+    private final UserService userView;
 
     public Dispatcher(){
-        reimbursementView = new ReimbursementDao();
-        userView = new UserDao();
+        reimbursementView = new ReimbursementService();
+        userView = new UserService();
     }
 
     @SuppressWarnings("rawtypes")
     public void dispatch(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
-        GenericDao dao;
+        GenericService service;
+
+        // Map parameters to their first value
+        HashMap<String,String> parameterMap = new HashMap<>();
+        for(Map.Entry<String,String[]> m :req.getParameterMap().entrySet()){
+            parameterMap.put(m.getKey(),m.getValue()[0]);
+        }
         if(clazz.equals(UserServlet.class)){
-            dao = userView;
+            service = userView;
             out.println("Users");
         } else if(clazz.equals(ReimbursementServlet.class)){
-            dao = reimbursementView;
+            service = reimbursementView;
             out.println("Reimbursement");
         } else{
-            // if the class doesn't match a dao
+            // if the class doesn't match a service
             RuntimeException e = new RuntimeException("no DAO assigned for this class");
             e.printStackTrace();
             throw e;
         }
         switch(req.getMethod()){
             case "GET":
-                if (req.getParameter("id") != null){
-                    out.println(dao.getById(Integer.parseInt(req.getParameter("id"))).toString());
-                } else if (req.getParameter("username") != null){
-                    out.println(dao.getByUsername(req.getParameter("username")).toString());
-                } else if (req.getParameter("user_id") != null){
-                    for(Object o : dao.getByUserId(Integer.parseInt(req.getParameter("user_id")))){
+                if (parameterMap.get("id") != null){
+                    out.println(service.getById(Integer.parseInt(parameterMap.get("id"))).toString());
+                } else if (parameterMap.get("user_id") != null){
+                    for(Object o : service.getByUserId(Integer.parseInt(parameterMap.get("user_id")))){
                         out.println(o.toString());
                     }
                 } else {
                     // get all
-                    for(Object o : dao.getList()){
+                    for(Object o : service.getList()){
                         out.println(o.toString());
                     }
                 }
                 break;
             case "PUT":
+                service.createOrUpdate(parameterMap);
+                out.println("PUT");
                 break;
             case "POST":
+                service.create(parameterMap);
+                out.println("POSTED");
                 break;
             case "DELETE":
-                if (req.getParameter("id") != null){
-                    dao.delete(dao.getById(Integer.parseInt(req.getParameter("id"))));
-                    out.println("DELETED");
-                }
+                service.delete(parameterMap);
+                out.println("DELETED");
                 break;
             default:
                 RuntimeException e = new RuntimeException("You shouldn't have come here!");

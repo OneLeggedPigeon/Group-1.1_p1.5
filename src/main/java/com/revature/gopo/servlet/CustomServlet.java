@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * abstract servlet with methods to send requests to {@link FrontController} for processing
+ */
 public abstract class CustomServlet extends HttpServlet {
     FrontController front = FrontController.getInstance();
 
