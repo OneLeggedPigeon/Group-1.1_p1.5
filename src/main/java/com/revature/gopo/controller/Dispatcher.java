@@ -22,13 +22,22 @@ public class Dispatcher {
     private final UserService userView;
 
     //TODO look at documentation
-    Gson test;
+    Gson gson;
 
     public Dispatcher(){
         reimbursementView = new ReimbursementService();
         userView = new UserService();
+        gson = new Gson();
     }
 
+    /**
+     *
+     * @param clazz the calling Class, to differentiate UserServlet, ReimbersmentServlet, etc.
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @SuppressWarnings("rawtypes")
     public void dispatch(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -55,15 +64,15 @@ public class Dispatcher {
         switch(req.getMethod()){
             case "GET":
                 if (parameterMap.get("id") != null){
-                    out.println(service.getById(Integer.parseInt(parameterMap.get("id"))).toString());
+                    gson.toJson(service.getById(Integer.parseInt(parameterMap.get("id"))),out);
                 } else if (parameterMap.get("user_id") != null){
                     for(Object o : service.getByUserId(Integer.parseInt(parameterMap.get("user_id")))){
-                        out.println(o.toString());
+                        gson.toJson(o,out);
                     }
                 } else {
                     // get all
                     for(Object o : service.getList()){
-                        out.println(o.toString());
+                        gson.toJson(o,out);
                     }
                 }
                 break;
