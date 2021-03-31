@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -23,6 +24,21 @@ public class UserService implements GenericService<User> {
 	}
 
 	@Override
+	public void create(Map<String, String> map) {
+
+	}
+
+	@Override
+	public void createOrUpdate(Map<String, String> map) {
+
+	}
+
+	@Override
+	public void delete(Map<String, String> map) {
+
+	}
+
+	@Override
 	public List<User> getList() {
 		return ud.getList();
 	}
@@ -31,7 +47,12 @@ public class UserService implements GenericService<User> {
 	public User getById(int id) {
 		return ud.getById(id);
 	}
-	
+
+	@Override
+	public List<User> getByUserId(int id) {
+		return null;
+	}
+
 	public User getUserByUsername(String username) {
 		User u = ud.getByUsername(username);
 		if (u != null) {

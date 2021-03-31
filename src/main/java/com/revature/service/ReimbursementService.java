@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.revature.model.Reimbursement;
 import org.apache.log4j.Logger;
@@ -41,5 +42,35 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	
 	public void updateReimbursements(int[][] i, int r) {
 		rd.updateList(i, r);
+	}
+
+	@Override
+	public void create(Map<String, String> map) {
+
+	}
+
+	@Override
+	public void createOrUpdate(Map<String, String> map) {
+
+	}
+
+	@Override
+	public void delete(Map<String, String> map) {
+
+	}
+
+	@Override
+	public List<Reimbursement> getList() {
+		return null;
+	}
+
+	@Override
+	public Reimbursement getById(int id) {
+		return null;
+	}
+
+	@Override
+	public List<Reimbursement> getByUserId(int id) {
+		return null;
 	}
 }
