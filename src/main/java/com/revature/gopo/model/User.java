@@ -1,4 +1,4 @@
-package com.revature.model;
+package com.revature.gopo.model;
 
 public class User {
 	// TODO: add Hibernate JPA annotations to class and fields

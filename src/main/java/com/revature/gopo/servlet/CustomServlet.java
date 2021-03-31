@@ -1,9 +1,8 @@
-package com.revature.servlet;
+package com.revature.gopo.servlet;
 
-import com.revature.controller.FrontController;
+import com.revature.gopo.controller.FrontController;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.gopo.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,10 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.gopo.model.User;
+import com.revature.gopo.util.ConnectionUtil;
 import org.apache.log4j.Logger;
-
-import com.revature.model.User;
-import com.revature.util.ConnectionUtil;
 
 /**
  * Purpose of this Dao is to send/retrieve info about a user

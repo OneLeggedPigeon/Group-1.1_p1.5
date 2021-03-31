@@ -1,4 +1,4 @@
-package com.revature.config;
+package com.revature.gopo.config;
 
 import java.io.IOException;
 import java.nio.file.Files;

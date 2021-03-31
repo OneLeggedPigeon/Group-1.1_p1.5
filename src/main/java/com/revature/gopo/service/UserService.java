@@ -1,4 +1,4 @@
-package com.revature.service;
+package com.revature.gopo.service;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -6,10 +6,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
+import com.revature.gopo.model.User;
 import org.apache.log4j.Logger;
 
-import com.revature.dao.UserDao;
-import com.revature.model.User;
+import com.revature.gopo.dao.UserDao;
 
 /**
  * Calls UserDao methods to perform persistence actions and handles business logic

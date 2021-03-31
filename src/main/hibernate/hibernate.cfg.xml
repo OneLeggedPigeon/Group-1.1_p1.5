@@ -29,8 +29,8 @@
         <!-- Echo all executed SQL to stdout; change if necessary-->
         <property name="show_sql">true</property>
 
-        <mapping class = "com.revature.model.User"/>
-        <mapping class = "com.revature.model.Reimbursement"/>
+        <mapping class = "com.revature.gopo.model.User"/>
+        <mapping class = "com.revature.gopo.model.Reimbursement"/>
 
     </session-factory>
 </hibernate-configuration>

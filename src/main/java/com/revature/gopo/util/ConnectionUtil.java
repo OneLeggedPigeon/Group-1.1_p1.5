@@ -1,6 +1,6 @@
-package com.revature.util;
+package com.revature.gopo.util;
 
-import com.revature.config.DatabaseProperties;
+import com.revature.gopo.config.DatabaseProperties;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

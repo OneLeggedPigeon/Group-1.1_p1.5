@@ -1,6 +1,4 @@
-package com.revature.servlet;
-
-import com.revature.controller.SessionController;
+package com.revature.gopo.servlet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

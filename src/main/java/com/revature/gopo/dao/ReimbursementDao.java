@@ -1,4 +1,4 @@
-package com.revature.dao;
+package com.revature.gopo.dao;
 
 import java.sql.Array;
 import java.sql.CallableStatement;
@@ -13,10 +13,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import com.revature.model.Reimbursement;
+import com.revature.gopo.model.Reimbursement;
+import com.revature.gopo.util.ConnectionUtil;
 import org.apache.log4j.Logger;
-
-import com.revature.util.ConnectionUtil;
 
 /**
  * Purpose of this Dao is to send/retrieve info about a reimbursement

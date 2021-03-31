@@ -1,4 +1,4 @@
-package com.revature.controller;
+package com.revature.gopo.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

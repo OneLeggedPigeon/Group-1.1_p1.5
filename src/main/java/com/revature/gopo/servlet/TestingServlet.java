@@ -1,4 +1,4 @@
-package com.revature.servlet;
+package com.revature.gopo.servlet;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
