@@ -18,7 +18,6 @@ public class Reimbursement {
 	@Column(name = "Submitted")
 	private Timestamp submitted;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Resolved")
 	private Timestamp resolved;
 
@@ -26,10 +25,10 @@ public class Reimbursement {
 	private String description;
 
 	@Column(name = "Author")
-	private int author;
+	private User author;
 
 	@Column(name = "Resolver")
-	private int resolver;
+	private User resolver;
 
 	@Column(name = "StatusID")
 	private int status_id;
@@ -41,8 +40,8 @@ public class Reimbursement {
 		//No-arg constructor
 	}
 	
-	public Reimbursement(int id, float amount, Timestamp submitted, Timestamp resolved, String description, int author,
-			int resolver, int status_id, int type_id) {
+	public Reimbursement(int id, float amount, Timestamp submitted, Timestamp resolved, String description, User author,
+						 User resolver, int status_id, int type_id) {
 		this.id = id;
 		this.amount = amount;
 		this.submitted = submitted;
@@ -94,19 +93,19 @@ public class Reimbursement {
 		this.description = description;
 	}
 
-	public int getAuthor() {
+	public User getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(int author) {
+	public void setAuthor(User author) {
 		this.author = author;
 	}
 
-	public int getResolver() {
+	public User getResolver() {
 		return resolver;
 	}
 
-	public void setResolver(int resolver) {
+	public void setResolver(User resolver) {
 		this.resolver = resolver;
 	}
 
@@ -131,11 +130,11 @@ public class Reimbursement {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + Float.floatToIntBits(amount);
-		result = prime * result + author;
+		result = prime * result + ((author == null) ? 0 : author.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((resolved == null) ? 0 : resolved.hashCode());
-		result = prime * result + resolver;
+		result = prime * result + ((resolver == null) ? 0 : resolver.hashCode());
 		result = prime * result + status_id;
 		result = prime * result + ((submitted == null) ? 0 : submitted.hashCode());
 		result = prime * result + type_id;
