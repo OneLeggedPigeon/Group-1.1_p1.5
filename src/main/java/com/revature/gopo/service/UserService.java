@@ -25,17 +25,19 @@ public class UserService implements GenericService<User> {
 
 	@Override
 	public void create(Object o) {
-
+		//TODO: Differentiate this from createOrUpdate
+		ud.insert((User) o);
 	}
 
 	@Override
 	public void createOrUpdate(Object o) {
-
+		//TODO: Differentiate this from create
+		ud.insert((User) o);
 	}
 
 	@Override
 	public void delete(Object o) {
-
+		ud.delete((User) o);
 	}
 
 	@Override
@@ -50,7 +52,7 @@ public class UserService implements GenericService<User> {
 
 	@Override
 	public List<User> getByUserId(int id) {
-		return null;
+		return ud.getByUserId(id);
 	}
 
 	public User getUserByUsername(String username) {

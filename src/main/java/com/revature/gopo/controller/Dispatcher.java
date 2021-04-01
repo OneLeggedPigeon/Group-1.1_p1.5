@@ -1,5 +1,6 @@
 package com.revature.gopo.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.gopo.model.Reimbursement;
 import com.revature.gopo.model.User;
 import com.revature.gopo.service.GenericService;
@@ -8,6 +9,7 @@ import com.revature.gopo.service.UserService;
 import com.revature.gopo.servlet.ReimbursementServlet;
 import com.revature.gopo.servlet.UserServlet;
 import com.google.gson.*;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,7 @@ import java.util.Map;
 
 //https://www.tutorialspoint.com/design_pattern/front_controller_pattern.htm
 public class Dispatcher {
+    private static final Logger LOGGER = Logger.getLogger(Dispatcher.class);
     private final ReimbursementService reimbursementView;
     private final UserService userView;
     private final Gson gson;
@@ -42,11 +45,14 @@ public class Dispatcher {
     public void dispatch(Class<? extends HttpServlet> servletClass, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
+        String requestMethod = req.getMethod();
+
         GenericService service;
+        Object jsonObject = null;
 
         // Map parameters to their first value
         HashMap<String,String> parameterMap = new HashMap<>();
-        Class<? extends Object> modelClass;
+        Class<?> modelClass;
         for(Map.Entry<String,String[]> m :req.getParameterMap().entrySet()){
             parameterMap.put(m.getKey(),m.getValue()[0]);
         }
@@ -64,7 +70,21 @@ public class Dispatcher {
             e.printStackTrace();
             throw e;
         }
-        switch(req.getMethod()){
+        // if json is expected, try to parse the json with toJson()
+        if(!requestMethod.equals("GET")){
+            try {
+                jsonObject = gson.fromJson(req.getReader(),modelClass);
+                LOGGER.debug("JSON from the client was successfully parsed.");
+            } catch (JsonSyntaxException | JsonIOException e) {
+                LOGGER.error("Something occurred during JSON parsing. Is the JSON malformed?");
+                e.printStackTrace();
+            } catch (Exception e){
+                LOGGER.error("Something else went wrong");
+                e.printStackTrace();
+            }
+        }
+        // dispatch to the service layer depending on the requestMethod
+        switch(requestMethod){
             case "GET":
                 if (parameterMap.get("id") != null){
                     gson.toJson(service.getById(Integer.parseInt(parameterMap.get("id"))),out);
@@ -82,19 +102,19 @@ public class Dispatcher {
                 }
                 break;
             case "PUT":
-                service.createOrUpdate(gson.fromJson(req.getReader(),modelClass));
+                service.createOrUpdate(jsonObject);
                 out.println("PUT");
                 break;
             case "POST":
-                service.create(gson.fromJson(req.getReader(),modelClass));
+                service.create(jsonObject);
                 out.println("POSTED");
                 break;
             case "DELETE":
-                service.delete(gson.fromJson(req.getReader(),modelClass));
+                service.delete(jsonObject);
                 out.println("DELETED");
                 break;
             default:
-                RuntimeException e = new RuntimeException("You shouldn't have come here!");
+                RuntimeException e = new RuntimeException("We don't support that Http method yet");
                 e.printStackTrace();
                 throw e;
         }

@@ -21,56 +21,39 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 		rd = new ReimbursementDao();
 	}
 	
-	public void createReimbursement(String json) {
-		try {
-			Reimbursement r = new ObjectMapper().readValue(json, Reimbursement.class);
-			LOGGER.debug("JSON from the client was successfully parsed.");
-			rd.insert(r);
-		} catch (Exception e) {
-			LOGGER.error("Something occurred during JSON parsing for a new reimbursement. Is the JSON malformed?");
-			e.printStackTrace();
-		}
-	}
-	
-	public List<Reimbursement> fetchAllReimbursements() {
-		return rd.getList();
-	}
-	
-	public List<Reimbursement> getReimbursementsByUserID(int id) {
-		return rd.getByUserId(id);
-	}
-	
 	public void updateReimbursements(int[][] i, int r) {
 		rd.updateList(i, r);
 	}
 
 	@Override
 	public void create(Object o) {
-
+		//TODO: Differentiate this from createOrUpdate
+		rd.insert((Reimbursement) o);
 	}
 
 	@Override
 	public void createOrUpdate(Object o) {
-
+		//TODO: Differentiate this from create
+		rd.insert((Reimbursement) o);
 	}
 
 	@Override
 	public void delete(Object o) {
-
+		rd.delete((Reimbursement) o);
 	}
 
 	@Override
 	public List<Reimbursement> getList() {
-		return null;
+		return rd.getList();
 	}
 
 	@Override
 	public Reimbursement getById(int id) {
-		return null;
+		return rd.getById(id);
 	}
 
 	@Override
 	public List<Reimbursement> getByUserId(int id) {
-		return null;
+		return rd.getByUserId(id);
 	}
 }
