@@ -71,8 +71,10 @@ public class Dispatcher {
                     }
                 } else {
                     // get all
-                    for(Object o : service.getList()){
-                        gson.toJson(o,out);
+                    if(service.getList() != null){
+                        for(Object o : service.getList()){
+                            gson.toJson(o,out);
+                        }
                     }
                 }
                 break;
