@@ -15,7 +15,7 @@
         </property>
 
         <property name = "hibernate.connection.url">
-            jdbc:postgresql://revature-project.cu9tcaqykiil.us-east-2.rds.amazonaws.com:5432/postgres
+            jdbc:postgresql://revature-project.cu9tcaqykiil.us-east-2.rds.amazonaws.com:5432/postgres?currentSchema=p_1_5
         </property>
 
         <property name = "hibernate.connection.username">
