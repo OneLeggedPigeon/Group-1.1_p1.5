@@ -1,5 +1,7 @@
 package com.revature.gopo.controller;
 
+import com.revature.gopo.model.Reimbursement;
+import com.revature.gopo.model.User;
 import com.revature.gopo.service.GenericService;
 import com.revature.gopo.service.ReimbursementService;
 import com.revature.gopo.service.UserService;
@@ -20,9 +22,7 @@ import java.util.Map;
 public class Dispatcher {
     private final ReimbursementService reimbursementView;
     private final UserService userView;
-
-    //TODO look at documentation
-    Gson gson;
+    private final Gson gson;
 
     public Dispatcher(){
         reimbursementView = new ReimbursementService();
@@ -32,29 +32,32 @@ public class Dispatcher {
 
     /**
      *
-     * @param clazz the calling Class, to differentiate UserServlet, ReimbersmentServlet, etc.
+     * @param servletClass the calling Class, to differentiate UserServlet, ReimbersmentServlet, etc.
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
      * @throws IOException
      */
     @SuppressWarnings("rawtypes")
-    public void dispatch(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
+    public void dispatch(Class<? extends HttpServlet> servletClass, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         GenericService service;
 
         // Map parameters to their first value
         HashMap<String,String> parameterMap = new HashMap<>();
+        Class<? extends Object> modelClass;
         for(Map.Entry<String,String[]> m :req.getParameterMap().entrySet()){
             parameterMap.put(m.getKey(),m.getValue()[0]);
         }
-        if(clazz.equals(UserServlet.class)){
+        if(servletClass.equals(UserServlet.class)){
             service = userView;
             out.println("Users");
-        } else if(clazz.equals(ReimbursementServlet.class)){
+            modelClass = User.class;
+        } else if(servletClass.equals(ReimbursementServlet.class)){
             service = reimbursementView;
             out.println("Reimbursement");
+            modelClass = Reimbursement.class;
         } else{
             // if the class doesn't match a service
             RuntimeException e = new RuntimeException("no DAO assigned for this class");
@@ -79,15 +82,15 @@ public class Dispatcher {
                 }
                 break;
             case "PUT":
-                service.createOrUpdate(parameterMap);
+                service.createOrUpdate(gson.fromJson(req.getReader(),modelClass));
                 out.println("PUT");
                 break;
             case "POST":
-                service.create(parameterMap);
+                service.create(gson.fromJson(req.getReader(),modelClass));
                 out.println("POSTED");
                 break;
             case "DELETE":
-                service.delete(parameterMap);
+                service.delete(gson.fromJson(req.getReader(),modelClass));
                 out.println("DELETED");
                 break;
             default:

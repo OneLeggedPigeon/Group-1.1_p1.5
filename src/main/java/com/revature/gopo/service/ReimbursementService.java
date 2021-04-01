@@ -45,17 +45,17 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	}
 
 	@Override
-	public void create(Map<String, String> map) {
+	public void create(Object o) {
 
 	}
 
 	@Override
-	public void createOrUpdate(Map<String, String> map) {
+	public void createOrUpdate(Object o) {
 
 	}
 
 	@Override
-	public void delete(Map<String, String> map) {
+	public void delete(Object o) {
 
 	}
 
