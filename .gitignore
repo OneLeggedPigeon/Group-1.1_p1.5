@@ -7,4 +7,5 @@
 **/*.iml
 **/*.iws
 **/log/
+**/webapptest/
 /src/main/resources/META-INF/MANIFEST.MF
