@@ -1,17 +1,39 @@
 package com.revature.gopo.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "Reimbursements")
 public class Reimbursement {
-	// TODO: add Hibernate JPA annotations to class and fields
+	@Id
+	@Column(name = "ID")
 	private int id;
+
+	@Column(name = "Amount")
 	private float amount;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "Submitted")
 	private Timestamp submitted;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "Resolved")
 	private Timestamp resolved;
+
+	@Column(name = "Description")
 	private String description;
+
+	@Column(name = "Author")
 	private int author;
+
+	@Column(name = "Resolver")
 	private int resolver;
+
+	@Column(name = "StatusID")
 	private int status_id;
+
+	@Column(name = "TypeID")
 	private int type_id;
 	
 	public Reimbursement() {

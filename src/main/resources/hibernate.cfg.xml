@@ -15,15 +15,15 @@
         </property>
 
         <property name = "hibernate.connection.url">
-            <!--insert db connection url here-->
+            jdbc:postgresql://revature-project.cu9tcaqykiil.us-east-2.rds.amazonaws.com:5432/postgres
         </property>
 
         <property name = "hibernate.connection.username">
-            <!--insert db username here-->
+            ecthelonius
         </property>
 
         <property name = "hibernate.connection.password">
-            <!--insert db password here-->
+            password
         </property>
 
         <!-- Echo all executed SQL to stdout; change if necessary-->

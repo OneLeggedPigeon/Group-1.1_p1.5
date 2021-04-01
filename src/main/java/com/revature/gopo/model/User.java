@@ -1,13 +1,30 @@
 package com.revature.gopo.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Users")
 public class User {
-	// TODO: add Hibernate JPA annotations to class and fields
+	@Id
+	@Column(name = "UserID")
 	private int user_id;
+
+	@Column(name = "Username")
 	private String username;
+
+	@Column(name = "Password")
 	private String password;
+
+	@Column(name = "Firstname")
 	private String firstname;
+
+	@Column(name = "Lastname")
 	private String lastname;
+
+	@Column(name = "Email")
 	private String email;
+
+	@Column(name = "RoleID")
 	private int role_id;
 	
 	public User() {

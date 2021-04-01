@@ -14,8 +14,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.revature.gopo.model.Reimbursement;
+import com.revature.gopo.model.User;
 import com.revature.gopo.util.ConnectionUtil;
+import com.revature.gopo.util.SessionUtil;
 import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  * Purpose of this Dao is to send/retrieve info about a reimbursement
@@ -23,8 +28,11 @@ import org.apache.log4j.Logger;
  */
 public class ReimbursementDao implements GenericDao<Reimbursement> {
 	private static final Logger LOGGER = Logger.getLogger(ReimbursementDao.class);
+	private SessionFactory sessionFactory;
 
-	// TODO: determine if Hibernate's session creation logic goes here or in GenericDao
+	public ReimbursementDao() {
+		sessionFactory = SessionUtil.getSessionFactory();
+	}
 	
 	private Reimbursement objectConstructor(ResultSet rs) throws SQLException {
 		return new Reimbursement(rs.getInt(1), rs.getFloat(2), rs.getTimestamp(3), rs.getTimestamp(4),
@@ -33,102 +41,81 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 
 	@Override
 	public List<Reimbursement> getList() {
-		// TODO: use Hibernate session.findAll()
-		List<Reimbursement> l = new ArrayList<Reimbursement>();
+		List<Reimbursement> result = new ArrayList<Reimbursement>();
 		
-		try (Connection c = ConnectionUtil.getInstance().getConnection()) {
-			String qSql = "SELECT * FROM ers_reimbursement";
-			Statement s = c.createStatement();
-			ResultSet rs = s.executeQuery(qSql);
-			
-			while(rs.next()) {
-				l.add(objectConstructor(rs));
-			}
-			
-			rs.close();
-			s.closeOnCompletion();
+		try {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			// watch out for cast from List to List<Reimbursement>
+			result = session.createQuery("from Reimbursements").list();
+			session.getTransaction().commit();
+			session.close();
 			LOGGER.debug("All reimbursements were retrieved from the database.");
-		} catch (SQLException e) {
+		} catch (HibernateException | ClassCastException e) {
 			e.printStackTrace();
 			LOGGER.error("An attempt to get all reimbursements failed.");
 		}
-		return l;
+
+		return result;
 	}
 
 	@Override
 	public Reimbursement getById(int id) {
-		// TODO: use Hibernate session.find()
 		Reimbursement r = null;
 		
-		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
-			String qSql = "SELECT * FROM ers_reimbursement WHERE reimb_id = ?";
-			PreparedStatement ps = c.prepareStatement(qSql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			if(rs.next())
-				r = objectConstructor(rs);
-			
-			rs.close();
-			ps.closeOnCompletion();
+		try {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			// using Hibernate's get() method instead of JPA's find() method
+			r = session.get(Reimbursement.class, id);
+			session.getTransaction().commit();
+			session.close();
 			LOGGER.debug("A reimbursement by ID " + id + " was retrieved from the database.");
-		} catch (SQLException e) {
+		} catch (HibernateException e) {
 			e.printStackTrace();
 			LOGGER.error("An attempt to get a reimbursement by ID" + id + " from the database failed.");
 		}
+
 		return r;
 	}
 	
 	@Override
 	public List<Reimbursement> getByUserId(int id) {
-		// TODO: use Hibernate session.find()
 		List<Reimbursement> l = new ArrayList<Reimbursement>();
 		
-		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
-			String qSql = "SELECT * FROM ers_reimbursement WHERE reimb_author = ?";
-			PreparedStatement ps = c.prepareStatement(qSql);
-			ps.setInt(1, id);
-			ResultSet rs = ps.executeQuery();
-			
-			while(rs.next()) {
-				l.add(objectConstructor(rs));
-			}
-			rs.close();
-			ps.closeOnCompletion();
+		try {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			// watch out for bad casts...maybe?
+			l = session.createQuery("from Reimbursements where id = " + id).list();
+			session.getTransaction().commit();
+			session.close();
 			LOGGER.debug("A list of reimbursements made by user ID " + id + " was retrieved from the database.");
-		} catch (SQLException e) {
+		} catch (HibernateException | ClassCastException e) {
 			e.printStackTrace();
 			LOGGER.error("An attempt to get all reimbursements made by user ID " + id + " fron the database failed.");
 		}
+
+		// why is this here?
 		System.out.println(l.toString());
 		return l;
 	}
 	
 	public Reimbursement getByUsername(String username) {
-		// TODO: use Hibernate session.find() ... or not?
 		//Empty. Reason - No use.
 		return null;
 	}
 
 	@Override
 	public void insert(Reimbursement r) {
-		// TODO: use Hibernate session.save()
-		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
-			String sql = "INSERT INTO ers_reimbursement(reimb_amount, reimb_submitted, reimb_description, "
-					   + "reimb_author, reimb_status_id, reimb_type_id) VALUES(?, ?, ?, ?, ?, ?)";
-			PreparedStatement ps = c.prepareStatement(sql);
-			ps.setFloat(1, r.getAmount());
-			Calendar cal = Calendar.getInstance();
-			ps.setTimestamp(2, new Timestamp(cal.getTime().getTime()));
-			ps.setString(3, r.getDescription());
-			ps.setInt(4, r.getAuthor());
-			ps.setInt(5, r.getStatus_id());
-			ps.setInt(6, r.getType_id());
-			
-			ps.executeUpdate();
-			ps.closeOnCompletion();
+		try {
+			Session session = sessionFactory.openSession();
+			session.beginTransaction();
+			session.save(r);
+			session.getTransaction().commit();
+			session.close();
 			LOGGER.debug("A new reimbursement was successfully added to the database.");
-		} catch (SQLException e) {
+		} catch (HibernateException e) {
 			e.printStackTrace();
 			LOGGER.error("An attempt to insert a reimbursement to the database failed.");
 		}
@@ -180,7 +167,11 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	
 	@Override
 	public void delete(Reimbursement r) {
-		// TODO: use Hibernate session.delete()
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.delete(r);
+		session.getTransaction().commit();
+		session.close();
 	}
 	
 }
