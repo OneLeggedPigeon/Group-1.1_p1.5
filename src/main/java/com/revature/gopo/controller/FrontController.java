@@ -1,5 +1,7 @@
 package com.revature.gopo.controller;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +10,7 @@ import java.io.IOException;
 
 //https://www.tutorialspoint.com/design_pattern/front_controller_pattern.htm
 public class FrontController {
+    private static final Logger LOGGER = Logger.getLogger(FrontController.class);
 
     private Dispatcher dispatcher;
 
@@ -32,15 +35,16 @@ public class FrontController {
         return true;
     }
 
-    private void trackRequest(HttpServletRequest req){
-        //TODO: replace this with a logger
-        System.out.println("Page requested: " + req);
+    private void trackRequest(Class<? extends HttpServlet> clazz, HttpServletRequest req){
+        LOGGER.debug("Page requested: " + req +
+                System.lineSeparator() + "Method: " + req.getMethod() +
+                System.lineSeparator() + "Servlet: " + clazz);
     }
 
     public void dispatchRequest(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         //log each request
-        trackRequest(req);
+        trackRequest(clazz, req);
 
         //authenticate the user
         if(isAuthenticUser()){

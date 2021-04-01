@@ -30,7 +30,7 @@ public class Dispatcher {
     public Dispatcher(){
         reimbursementView = new ReimbursementService();
         userView = new UserService();
-        gson = new Gson();
+        gson = new Gson().newBuilder().setPrettyPrinting().create();
     }
 
     /**
@@ -74,9 +74,9 @@ public class Dispatcher {
         if(!requestMethod.equals("GET")){
             try {
                 jsonObject = gson.fromJson(req.getReader(),modelClass);
-                LOGGER.debug("JSON from the client was successfully parsed.");
+                LOGGER.debug("JSON from the client was successfully parsed. Method: "+requestMethod);
             } catch (JsonSyntaxException | JsonIOException e) {
-                LOGGER.error("Something occurred during JSON parsing. Is the JSON malformed?");
+                LOGGER.error("Something occurred during JSON parsing. Is the JSON malformed? Method: "+requestMethod);
                 e.printStackTrace();
             } catch (Exception e){
                 LOGGER.error("Something else went wrong");
