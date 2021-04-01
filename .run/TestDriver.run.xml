@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestDriver" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.revature.gopo.TestDriver" />
+    <module name="g_1.1-p_1.5" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

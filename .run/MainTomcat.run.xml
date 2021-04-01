@@ -1,0 +1,26 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MainTomcat" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
+    <output_file path="$PROJECT_DIR$/src/main/resources/log/tomcat.out" is_save="true" />
+    <option name="adminPort" value="8005" />
+    <option name="contextPath" value="/" />
+    <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+    <option name="envOptions">
+      <map />
+    </option>
+    <output_file path="$PROJECT_DIR$/src/main/resources/log/tomcat.out" is_save="true" />
+    <option name="passParentEnvironmentVariables" value="true" />
+    <option name="port" value="8080" />
+    <option name="tomcatInfo">
+      <TomcatInfo>
+        <option name="name" value="Apache Tomcat/9.0.44" />
+        <option name="number" value="0" />
+        <option name="path" value="C:\Users\Nate\Apache Tomcat\apache-tomcat-9.0.44" />
+        <option name="version" value="9.0.44.0" />
+      </TomcatInfo>
+    </option>
+    <option name="vmOptions" value="" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
