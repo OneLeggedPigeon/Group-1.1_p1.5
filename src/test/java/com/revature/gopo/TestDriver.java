@@ -1,5 +1,8 @@
 package com.revature.gopo;
 
+import com.revature.gopo.dao.*;
+import com.revature.gopo.model.*;
+
 public class TestDriver {
     public static void main(String[] args) {
         // create some test objects

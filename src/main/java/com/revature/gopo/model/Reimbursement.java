@@ -14,7 +14,6 @@ public class Reimbursement {
 	@Column(name = "Amount")
 	private float amount;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "Submitted")
 	private Timestamp submitted;
 
