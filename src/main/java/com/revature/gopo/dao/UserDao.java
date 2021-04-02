@@ -63,24 +63,26 @@ public class UserDao implements GenericDao <User> {
 
 		return u;
 	}
-	
+
+	/**
+	 * @param id id of the user
+	 * @return a size()==1 array of the user with this id
+	 */
 	@Override
 	public List<User> getByUserId(int id) {
-		// Empty. Reason - no use. Users' id is primary key;
-		// therefore getting a user by id will never return more than 1 user.
-		return null;
+		List<User> result = new ArrayList<>();
+		result.add(getById(id));
+		return result;
 	}
-	
-	@Override
+
 	public User getByUsername(String username) {
 		User u = null;
 		
 		try {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
-			// using Hibernate's get() method instead of JPA's find() method
-			// also works with strings because they're serializable!
-			u = session.get(User.class, username);
+			// Actually we can use a @NaturalId to find something with that
+			u = session.byNaturalId(User.class).using("username",username).load();
 			session.getTransaction().commit();
 			session.close();
 			LOGGER.debug("Information about username " + username + " was retrieved from the database.");
@@ -95,7 +97,7 @@ public class UserDao implements GenericDao <User> {
 	public void insert(User t) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.save(t);
+		session.persist(t);
 		session.getTransaction().commit();
 		session.close();
 	}

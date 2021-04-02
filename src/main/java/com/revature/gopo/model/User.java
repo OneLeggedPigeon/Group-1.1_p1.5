@@ -1,5 +1,7 @@
 package com.revature.gopo.model;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,19 +12,15 @@ public class User {
 	@Column(name = "UserID")
 	private int user_id;
 
-	@Column(name = "Username")
+	@NaturalId
 	private String username;
 
-	@Column(name = "Password")
 	private String password;
 
-	@Column(name = "Firstname")
 	private String firstname;
 
-	@Column(name = "Lastname")
 	private String lastname;
 
-	@Column(name = "Email")
 	private String email;
 
 	@Column(name = "RoleID")

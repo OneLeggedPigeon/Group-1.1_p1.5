@@ -1,5 +1,8 @@
 package com.revature.gopo.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -11,30 +14,28 @@ public class Reimbursement {
 	@Column(name = "ID")
 	private int id;
 
-	@Column(name = "Amount")
 	private float amount;
 
-	@Column(name = "Submitted")
+	@Column(name = "submitted")
 	private Timestamp submitted;
 
-	@Column(name = "Resolved")
+	@Column(name = "resolved")
 	private Timestamp resolved;
 
-	@Column(name = "Description")
 	private String description;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "Author")
+	@ManyToOne
+	@JoinColumn(name = "Author", referencedColumnName = "UserID")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User author;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "Resolver")
+	@ManyToOne
+	@JoinColumn(name = "Resolver", referencedColumnName = "UserID")
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private User resolver;
 
-	@Column(name = "StatusID")
 	private int status_id;
 
-	@Column(name = "TypeID")
 	private int type_id;
 	
 	public Reimbursement() {

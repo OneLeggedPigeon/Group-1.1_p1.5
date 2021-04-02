@@ -76,7 +76,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			// watch out for bad casts...maybe?
-			l = session.createQuery("from Reimbursements where id = " + id).list();
+			l = session.createQuery("from Reimbursement where author = " + id).list();
 			session.getTransaction().commit();
 			session.close();
 			LOGGER.debug("A list of reimbursements made by user ID " + id + " was retrieved from the database.");
@@ -88,11 +88,6 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		// why is this here?
 		System.out.println(l.toString());
 		return l;
-	}
-	
-	public Reimbursement getByUsername(String username) {
-		//Empty. Reason - No use.
-		return null;
 	}
 
 	@Override
@@ -114,7 +109,10 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 	public void delete(Reimbursement r) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.delete(r);
+		r = session.get(r.getClass(),r.getId());
+		if(r != null) {
+			session.delete(r);
+		}
 		session.getTransaction().commit();
 		session.close();
 	}
