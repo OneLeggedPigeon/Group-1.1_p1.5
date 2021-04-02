@@ -43,7 +43,7 @@ public class FrontController {
 
     public void dispatchRequest(Class<? extends HttpServlet> clazz, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        //log each request
+        // each request
         trackRequest(clazz, req);
 
         //authenticate the user
