@@ -24,10 +24,12 @@ public class Reimbursement {
 	@Column(name = "Description")
 	private String description;
 
-	@Column(name = "Author")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "Author")
 	private User author;
 
-	@Column(name = "Resolver")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name = "Resolver")
 	private User resolver;
 
 	@Column(name = "StatusID")
@@ -40,17 +42,14 @@ public class Reimbursement {
 		//No-arg constructor
 	}
 	
-	public Reimbursement(int id, float amount, Timestamp submitted, Timestamp resolved, String description, User author,
-						 User resolver, int status_id, int type_id) {
-		this.id = id;
+	public Reimbursement(float amount, Timestamp submitted, Timestamp resolved, String description, User author,
+						 User resolver) {
 		this.amount = amount;
 		this.submitted = submitted;
 		this.resolved = resolved;
 		this.description = description;
 		this.author = author;
 		this.resolver = resolver;
-		this.status_id = status_id;
-		this.type_id = type_id;
 	}
 
 	public int getId() {

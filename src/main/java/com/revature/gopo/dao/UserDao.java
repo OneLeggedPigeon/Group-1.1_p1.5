@@ -1,15 +1,11 @@
 package com.revature.gopo.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.gopo.model.User;
-import com.revature.gopo.util.ConnectionUtil;
 import com.revature.gopo.util.SessionUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -26,11 +22,6 @@ public class UserDao implements GenericDao <User> {
 
 	public UserDao() {
 		sessionFactory = SessionUtil.getSessionFactory();
-	}
-
-	private User objectConstructor(ResultSet rs) throws SQLException {
-		return new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7));
 	}
 	
 	@Override
@@ -113,7 +104,10 @@ public class UserDao implements GenericDao <User> {
 	public void delete(User t) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.delete(t);
+		t = session.find(t.getClass(),t.getUser_id());
+		if(t != null){
+			session.remove(t);
+		}
 		session.getTransaction().commit();
 		session.close();
 	}

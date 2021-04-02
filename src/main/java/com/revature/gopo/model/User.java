@@ -32,9 +32,8 @@ public class User {
 		//No-arg constructor
 	}
 	
-	public User(int user_id, String username, String password, String firstname, String lastname, String email,
+	public User(String username, String password, String firstname, String lastname, String email,
 			int role_id) {
-		this.user_id = user_id;
 		this.username = username;
 		this.password = password;
 		this.firstname = firstname;

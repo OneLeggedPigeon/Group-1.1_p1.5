@@ -28,6 +28,8 @@
 
         <!-- Echo all executed SQL to stdout; change if necessary-->
         <property name="show_sql">true</property>
+        
+        <property name="hbm2ddl.auto">update</property>
 
         <mapping class = "com.revature.gopo.model.User"/>
         <mapping class = "com.revature.gopo.model.Reimbursement"/>

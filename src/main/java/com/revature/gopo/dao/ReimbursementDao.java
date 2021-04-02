@@ -3,19 +3,13 @@ package com.revature.gopo.dao;
 import java.sql.Array;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import com.revature.gopo.model.Reimbursement;
-import com.revature.gopo.model.User;
-import com.revature.gopo.util.ConnectionUtil;
 import com.revature.gopo.util.SessionUtil;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -32,11 +26,6 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 
 	public ReimbursementDao() {
 		sessionFactory = SessionUtil.getSessionFactory();
-	}
-	
-	private Reimbursement objectConstructor(ResultSet rs) throws SQLException {
-		return new Reimbursement(rs.getInt(1), rs.getFloat(2), rs.getTimestamp(3), rs.getTimestamp(4),
-							rs.getString(5), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10));
 	}
 
 	@Override
@@ -118,50 +107,6 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			LOGGER.error("An attempt to insert a reimbursement to the database failed.");
-		}
-	}
-	
-	public void updateList(int[][] i, int resolver) {
-		// TODO: use Hibernate session.update()
-		try(Connection c = ConnectionUtil.getInstance().getConnection()) {
-			String aSql = "SELECT acceptarray(?, ?)";
-			String dSql = "SELECT denyarray(?, ?)";
-			
-			//Convert both of our int arrays to an Integer object
-			Integer[] a = Arrays.stream(i[0]).boxed().toArray(Integer[]::new);
-			Integer[] d = Arrays.stream(i[1]).boxed().toArray(Integer[]::new);
-			
-			//Convert both of our Integer arrays into something useful for SQL.
-			Array aArray = c.createArrayOf("INTEGER", a);
-			Array dArray = c.createArrayOf("INTEGER", d);
-			
-			//Perform our SQL calls
-			CallableStatement cs = c.prepareCall(aSql);
-			cs.setArray(1, aArray);
-			cs.setInt(2, resolver);
-			cs.execute();
-			cs.closeOnCompletion();
-			
-			cs = c.prepareCall(dSql);
-			cs.setArray(1, dArray);
-			cs.setInt(2, resolver);
-			cs.execute();
-			cs.closeOnCompletion();
-			
-			//This section is just for the sake of logging.
-			int totalCount = 0;
-			for(int co = 0; co < a.length; co++) {
-				if (a[co] != -1) {
-					totalCount++;
-				}
-				if (d[co] != -1) {
-					totalCount++;
-				}
-			}
-			LOGGER.debug(totalCount + " reimbursement" + ((totalCount != 1) ? "s" : "") + " modified by user ID " + resolver + ".");
-		} catch (SQLException e) {
-			LOGGER.error("An attempt to accept/deny reimbursements by user ID " + resolver + " from the database failed.");
-			e.printStackTrace();
 		}
 	}
 	

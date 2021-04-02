@@ -20,11 +20,11 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	public ReimbursementService() {
 		rd = new ReimbursementDao();
 	}
-	
-	public void updateReimbursements(int[][] i, int r) {
-		rd.updateList(i, r);
-	}
 
+	/**
+	 * always creates a new Object and database row
+	 * @param o the Reimbursement to add to the database
+	 */
 	@Override
 	public void create(Object o) {
 		//TODO: Differentiate this from createOrUpdate

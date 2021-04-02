@@ -23,6 +23,10 @@ public class UserService implements GenericService<User> {
 		ud = new UserDao();
 	}
 
+	/**
+	 * always creates a new Object and database row
+	 * @param o the Reimbursement to add to the database
+	 */
 	@Override
 	public void create(Object o) {
 		//TODO: Differentiate this from createOrUpdate
