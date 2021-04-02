@@ -103,15 +103,15 @@ public class Dispatcher {
                 break;
             case "PUT":
                 service.createOrUpdate(jsonObject);
-                out.println("PUT");
+                out.print("PUT");
                 break;
             case "POST":
                 service.create(jsonObject);
-                out.println("POSTED");
+                out.print("POSTED");
                 break;
             case "DELETE":
                 service.delete(jsonObject);
-                out.println("DELETED");
+                out.print("DELETED, IF IT EXISTED IN THE FIRST PLACE");
                 break;
             default:
                 RuntimeException e = new RuntimeException("We don't support that Http method yet");
