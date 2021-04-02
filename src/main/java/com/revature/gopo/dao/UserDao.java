@@ -32,7 +32,7 @@ public class UserDao implements GenericDao <User> {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			// watch out for cast from List to List<User>
-			result = session.createQuery("from Users").list();
+			result = session.createQuery("from User").list();
 			session.getTransaction().commit();
 			session.close();
 			LOGGER.debug("A list of users was retrieved from the database.");
