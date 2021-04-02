@@ -24,19 +24,24 @@ public class UserService implements GenericService<User> {
 	}
 
 	/**
-	 * always creates a new Object and database row
-	 * @param o the Reimbursement to add to the database
+	 * Always creates a new object and database row, mirroring POST functionality
+	 *
+	 * @param o the User to add to the database
 	 */
 	@Override
 	public void create(Object o) {
-		//TODO: Differentiate this from createOrUpdate
 		ud.insert((User) o);
 	}
 
+	/**
+	 * Creates a new object and database row if one is not present;
+	 * otherwise, updates the given persistence object (mirroring PUT)
+	 *
+	 * @param o the User to add to the db or to update
+	 */
 	@Override
 	public void createOrUpdate(Object o) {
-		//TODO: Differentiate this from create
-		ud.insert((User) o);
+		ud.insertOrUpdate((User) o);
 	}
 
 	@Override
@@ -59,6 +64,13 @@ public class UserService implements GenericService<User> {
 		return ud.getByUserId(id);
 	}
 
+	/**
+	 * Returns the user specified by the given username with the password
+	 * erased for security reasons.
+	 *
+	 * @param username
+	 * @return
+	 */
 	public User getUserByUsername(String username) {
 		User u = ud.getByUsername(username);
 		if (u != null) {
@@ -68,7 +80,14 @@ public class UserService implements GenericService<User> {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Validates user login. Probably deprecated.
+	 *
+	 * @param user
+	 * @param pass
+	 * @return
+	 */
 	public User getUserByLogin(String user, String pass) {
 		User u = ud.getByUsername(user);
 		

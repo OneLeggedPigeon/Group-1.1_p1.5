@@ -28,6 +28,11 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		sessionFactory = SessionUtil.getSessionFactory();
 	}
 
+	/**
+	 * Returns a list of all users.
+	 *
+	 * @return
+	 */
 	@Override
 	public List<Reimbursement> getList() {
 		List<Reimbursement> result = new ArrayList<Reimbursement>();
@@ -48,6 +53,12 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		return result;
 	}
 
+	/**
+	 * Returns the reimbursement object with the given ID.
+	 *
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public Reimbursement getById(int id) {
 		Reimbursement r = null;
@@ -67,7 +78,13 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 
 		return r;
 	}
-	
+
+	/**
+	 * Returns all reimbursement objects created by the user with the given ID.
+	 *
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public List<Reimbursement> getByUserId(int id) {
 		List<Reimbursement> l = new ArrayList<Reimbursement>();
@@ -90,6 +107,11 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		return l;
 	}
 
+	/**
+	 * Inserts the given reimbursement object into the db.
+	 *
+	 * @param r
+	 */
 	@Override
 	public void insert(Reimbursement r) {
 		try {
@@ -104,7 +126,34 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 			LOGGER.error("An attempt to insert a reimbursement to the database failed.");
 		}
 	}
-	
+
+	/**
+	 * Inserts the given reimbursement object into the db if not present or updates
+	 * the matching reimbursement with the given reimbursement's parameters if present.
+	 *
+	 * @param reimbursement
+	 */
+	@Override
+	public void insertOrUpdate(Reimbursement reimbursement) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		// if not present, save; if present, update
+		if (getById(reimbursement.getId()) == null) {
+			session.save(reimbursement);
+		} else {
+			session.update(reimbursement);
+		}
+
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	/**
+	 * Deletes the given reimbursement object from the db.
+	 *
+	 * @param r
+	 */
 	@Override
 	public void delete(Reimbursement r) {
 		Session session = sessionFactory.openSession();
@@ -116,5 +165,4 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 		session.getTransaction().commit();
 		session.close();
 	}
-	
 }

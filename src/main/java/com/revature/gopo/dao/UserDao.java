@@ -23,7 +23,12 @@ public class UserDao implements GenericDao <User> {
 	public UserDao() {
 		sessionFactory = SessionUtil.getSessionFactory();
 	}
-	
+
+	/**
+	 * Returns a list of all users.
+	 *
+	 * @return
+	 */
 	@Override
 	public List<User> getList() {
 		List<User> result = new ArrayList<User>();
@@ -44,6 +49,12 @@ public class UserDao implements GenericDao <User> {
 		return result;
 	}
 
+	/**
+	 * Returns the user with the given ID.
+	 *
+	 * @param id
+	 * @return
+	 */
 	@Override
 	public User getById(int id) {
 		User u = null;
@@ -65,6 +76,8 @@ public class UserDao implements GenericDao <User> {
 	}
 
 	/**
+	 * Returns a list containing only the user with the given ID.
+	 *
 	 * @param id id of the user
 	 * @return a size()==1 array of the user with this id
 	 */
@@ -75,6 +88,12 @@ public class UserDao implements GenericDao <User> {
 		return result;
 	}
 
+	/**
+	 * Returns the user with the given username.
+	 *
+	 * @param username
+	 * @return
+	 */
 	public User getByUsername(String username) {
 		User u = null;
 		
@@ -93,6 +112,11 @@ public class UserDao implements GenericDao <User> {
 		return u;
 	}
 
+	/**
+	 * Inserts the given user into the db.
+	 *
+	 * @param t
+	 */
 	@Override
 	public void insert(User t) {
 		Session session = sessionFactory.openSession();
@@ -102,6 +126,33 @@ public class UserDao implements GenericDao <User> {
 		session.close();
 	}
 
+	/**
+	 * Inserts the given user into the db if not present or updates
+	 * the matching user with the given user's parameters if present.
+	 *
+	 * @param user
+	 */
+	@Override
+	public void insertOrUpdate(User user) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		// if not present, save; if present, update
+		if (getById(user.getUser_id()) == null) {
+			session.save(user);
+		} else {
+			session.update(user);
+		}
+
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	/**
+	 * Deletes the given user from the db.
+	 *
+	 * @param t
+	 */
 	@Override
 	public void delete(User t) {
 		Session session = sessionFactory.openSession();

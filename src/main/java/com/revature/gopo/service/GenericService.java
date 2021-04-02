@@ -5,6 +5,11 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Defines basic functionality for the service layer of the application.
+ *
+ * @param <T>
+ */
 public interface GenericService<T> {
     public void create(Object o);
     public void createOrUpdate(Object o);

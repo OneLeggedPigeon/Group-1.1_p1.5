@@ -22,7 +22,8 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	}
 
 	/**
-	 * always creates a new Object and database row
+	 * Always creates a new object and database row, mirroring POST functionality
+	 *
 	 * @param o the Reimbursement to add to the database
 	 */
 	@Override
@@ -31,10 +32,16 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 		rd.insert((Reimbursement) o);
 	}
 
+	/**
+	 * Creates a new object and database row if one is not present;
+	 * otherwise, updates the given persistence object (mirroring PUT)
+	 *
+	 * @param o the User to add to the db or to update
+	 */
 	@Override
 	public void createOrUpdate(Object o) {
 		//TODO: Differentiate this from create
-		rd.insert((Reimbursement) o);
+		rd.insertOrUpdate((Reimbursement) o);
 	}
 
 	@Override
