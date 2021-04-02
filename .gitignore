@@ -6,6 +6,6 @@
 **/metadata/*
 **/*.iml
 **/*.iws
-**/*.war
 **/log/
+**/webapptest/
 /src/main/resources/META-INF/MANIFEST.MF
