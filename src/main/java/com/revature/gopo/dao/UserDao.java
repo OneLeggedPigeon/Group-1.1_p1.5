@@ -97,7 +97,7 @@ public class UserDao implements GenericDao <User> {
 	public void insert(User t) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
-		session.persist(t);
+		session.save(t);
 		session.getTransaction().commit();
 		session.close();
 	}

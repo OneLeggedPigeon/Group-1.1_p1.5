@@ -58,11 +58,9 @@ public class Dispatcher {
         }
         if(servletClass.equals(UserServlet.class)){
             service = userView;
-            out.println("Users");
             modelClass = User.class;
         } else if(servletClass.equals(ReimbursementServlet.class)){
             service = reimbursementView;
-            out.println("Reimbursement");
             modelClass = Reimbursement.class;
         } else{
             // if the class doesn't match a service
@@ -91,12 +89,14 @@ public class Dispatcher {
                 } else if (parameterMap.get("user_id") != null){
                     for(Object o : service.getByUserId(Integer.parseInt(parameterMap.get("user_id")))){
                         gson.toJson(o,out);
+                        out.println();
                     }
                 } else {
                     // get all
                     if(service.getList() != null){
                         for(Object o : service.getList()){
                             gson.toJson(o,out);
+                            out.println();
                         }
                     }
                 }
