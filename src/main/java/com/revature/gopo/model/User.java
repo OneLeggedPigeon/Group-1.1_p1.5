@@ -12,7 +12,7 @@ public class User {
 	@Column(name = "UserID")
 	private int user_id;
 
-	@NaturalId
+	@NaturalId(mutable = true)
 	private String username;
 
 	private String password;

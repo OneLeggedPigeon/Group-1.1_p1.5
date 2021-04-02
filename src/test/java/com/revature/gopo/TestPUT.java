@@ -22,9 +22,9 @@ public class TestPUT {
         Reimbursement r4 = new Reimbursement(5.0f, null, null, "reimb4", u2, u1);
 
         /*===DOA===*/
-        u1.setUser_id(9);
-        u2.setUser_id(21);
-        u3.setUser_id(12);
+        u1.setUser_id(1);
+        u2.setUser_id(2);
+        u3.setUser_id(3);
         // should change bob's username to bob1
         ud.insertOrUpdate(u1);
         // should change bill's username to bill1 and email to ur2om
@@ -32,8 +32,8 @@ public class TestPUT {
         // should add joe
         ud.insertOrUpdate(u3);
 
-        r3.setId(5);
-        r4.setId(4);
+        r3.setId(3);
+        r4.setId(7);
         // should add r3
         rd.insertOrUpdate(r3);
         // should change r4's author to 21 and resolver to 9
