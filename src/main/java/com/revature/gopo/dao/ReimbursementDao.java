@@ -36,7 +36,7 @@ public class ReimbursementDao implements GenericDao<Reimbursement> {
 			Session session = sessionFactory.openSession();
 			session.beginTransaction();
 			// watch out for cast from List to List<Reimbursement>
-			result = session.createQuery("from Reimbursements").list();
+			result = session.createQuery("from Reimbursement").list();
 			session.getTransaction().commit();
 			session.close();
 			LOGGER.debug("All reimbursements were retrieved from the database.");
