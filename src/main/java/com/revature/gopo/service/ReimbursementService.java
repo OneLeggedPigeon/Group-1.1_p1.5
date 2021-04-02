@@ -28,7 +28,6 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	 */
 	@Override
 	public void create(Object o) {
-		//TODO: Differentiate this from createOrUpdate
 		rd.insert((Reimbursement) o);
 	}
 
@@ -40,7 +39,6 @@ public class ReimbursementService implements GenericService<Reimbursement> {
 	 */
 	@Override
 	public void createOrUpdate(Object o) {
-		//TODO: Differentiate this from create
 		rd.insertOrUpdate((Reimbursement) o);
 	}
 
