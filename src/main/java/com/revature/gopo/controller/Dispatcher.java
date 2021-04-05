@@ -87,18 +87,22 @@ public class Dispatcher {
                 if (parameterMap.get("id") != null){
                     gson.toJson(service.getById(Integer.parseInt(parameterMap.get("id"))),out);
                 } else if (parameterMap.get("user_id") != null){
-                    for(Object o : service.getByUserId(Integer.parseInt(parameterMap.get("user_id")))){
-                        gson.toJson(o,out);
-                        out.println();
-                    }
-                } else {
+                    gson.toJson(service.getByUserId(Integer.parseInt(parameterMap.get("user_id"))), out);
+//                    out.println("{list: [");
+//                    for(Object o : service.getByUserId(Integer.parseInt(parameterMap.get("user_id")))){
+//                        gson.toJson(o,out);
+//                        out.println(",");
+//                    }
+//                    out.println("{}]}");// TODO: fix comma placement, maybe just put the list to JSON directly?
+                } else if(service.getList() != null){
                     // get all
-                    if(service.getList() != null){
-                        for(Object o : service.getList()){
-                            gson.toJson(o,out);
-                            out.println();
-                        }
-                    }
+                    gson.toJson(service.getList(), out);
+//                    out.println("{list: [");
+//                    for(Object o : service.getList()){
+//                        gson.toJson(o,out);
+//                        out.println(",");
+//                    }
+//                    out.println("{}]}");
                 }
                 break;
             case "PUT":
