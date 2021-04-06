@@ -16,6 +16,7 @@ public class HomeServlet extends HttpServlet {
         out.println("<html><body><h1>Group 1.1 - Project 1.5</h1>"+
                 "<h2>Index</h2>"+
                 "<div><a href='/user'>user</a></div>"+
-                "<div><a href='/reimbursement'>reimbursement</a></div></body></html>");
+                "<div><a href='/reimbursement'>reimbursement</a></div></body></html>"+
+                "<div><a href='/egg'>egg</a></div></body></html>");
     }
 }
