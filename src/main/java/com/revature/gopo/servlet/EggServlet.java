@@ -15,25 +15,53 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(urlPatterns = "/egg/generate")
+@WebServlet(urlPatterns = "/image/egg")
 public class EggServlet extends HttpServlet {
+
+    private static int WIDTH = 160;
+    private static int HEIGHT = 260;
+    private static int MARGIN = 1;
 
     public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
         String URLAfterWebDomain = request.getRequestURI();
 
+        // percentage of max size
+        int widthPerc;
+        int heightPerc;
+        // rgb color
+        int red;
+        int green;
+        int blue;
+        Color color;
+
         // Extract values from parameters
-        int width = 150;
-        int height = 150;
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        Color color = Color.WHITE;
-        width = Integer.parseInt(request.getParameter("width"));
-        height = Integer.parseInt(request.getParameter("height"));
-        red = Integer.parseInt(request.getParameter("red"));
-        green = Integer.parseInt(request.getParameter("green"));
-        blue = Integer.parseInt(request.getParameter("blue"));
+        try{
+            widthPerc = Math.min(100, Math.abs(Integer.parseInt(request.getParameter("width"))));
+        } catch (Exception e){
+            //Using Default
+            widthPerc = 50;
+        }
+
+        try{
+            heightPerc = Math.min(100, Math.abs(Integer.parseInt(request.getParameter("height"))));
+        } catch (Exception e){
+            //Using Default
+            heightPerc = 50;
+        }
+
+        try{
+            red = Integer.parseInt(request.getParameter("red"));
+            green = Integer.parseInt(request.getParameter("green"));
+            blue = Integer.parseInt(request.getParameter("blue"));
+        } catch (Exception e){
+            //Using Default
+            red = 10;
+            green = 10;
+            blue = 10;
+        }
         color = new Color(red,green,blue);
+        int width = widthPerc*WIDTH/100;
+        int height = heightPerc*HEIGHT/100;
 
         System.out.println(System.lineSeparator()+"Creating image");
         response.setContentType("image/jpeg"); //as far as I know, this works for PNG as well. You might want to change the mapping to /images/*.jpg if it's giving problems
@@ -42,51 +70,15 @@ public class EggServlet extends HttpServlet {
 
         BufferedOutputStream bout = new BufferedOutputStream(outStream);
 
-        BufferedImage bi = new BufferedImage( 500, 500, BufferedImage.TYPE_INT_RGB );
+        BufferedImage bi = new BufferedImage( WIDTH + 2*MARGIN, HEIGHT + 2*MARGIN, BufferedImage.TYPE_INT_RGB );
         Graphics2D g = bi.createGraphics();
         g.setColor(color);
-        g.fillOval( 30, 30, width, height );
+
+        g.fillOval( (WIDTH-width)/2+MARGIN, (HEIGHT-height)/2+MARGIN, width, height );
         g.dispose();
         ImageIO.write( bi, "jpeg", outStream );
 
         bout.close();
         outStream.close();
-    }
-
-    protected void doPost ( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException
-    {
-        response.setContentType( "image/jpeg" );
-        ServletOutputStream sos = response.getOutputStream();
-
-        BufferedImage bi = new BufferedImage( 500, 500, BufferedImage.TYPE_INT_RGB );
-        Graphics2D g = bi.createGraphics();
-        // g.setBackground(Color.WHITE);
-        // g.clearRect(0, 0, 300, 300);
-
-        String shapeselected = request.getParameter( "btn" );
-        if ( shapeselected.equals( "Circle" ) )
-        {
-            g.setColor( Color.RED );
-            g.fillOval( 30, 30, 150, 150 );
-            g.dispose();
-            ImageIO.write( bi, "jpeg", sos );
-        }
-        else
-        {
-            if ( shapeselected.equals( "Square" ) )
-            {
-                g.setColor( Color.GREEN );
-                g.fillRect( 80, 80, 100, 100 );
-                ImageIO.write( bi, "jpeg", sos );
-            }
-            else
-            {
-                g.setColor( Color.BLUE );
-                g.fillRect( 80, 80, 200, 150 );
-                ImageIO.write( bi, "jpeg", sos );
-            }
-        }
-
-        sos.close();
     }
 }
