@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(urlPatterns = "/image/egg")
 public class EggServlet extends HttpServlet {
 
-    private static int WIDTH = 160;
-    private static int HEIGHT = 260;
-    private static int MARGIN = 1;
+    private static final int WIDTH = 240;
+    private static final int HEIGHT = 240;
+    private static final int MARGIN = 4;
 
     public void doGet(HttpServletRequest request,HttpServletResponse response) throws IOException{
         String URLAfterWebDomain = request.getRequestURI();
@@ -62,6 +62,10 @@ public class EggServlet extends HttpServlet {
         color = new Color(red,green,blue);
         int width = widthPerc*WIDTH/100;
         int height = heightPerc*HEIGHT/100;
+        //calculate arc values
+        int arcWidth = height*9/12;
+        int arcHeightOval = height*7/12;
+        int arcHeightCirc = height*5/12;
 
         System.out.println(System.lineSeparator()+"Creating image");
         response.setContentType("image/jpeg"); //as far as I know, this works for PNG as well. You might want to change the mapping to /images/*.jpg if it's giving problems
@@ -72,9 +76,13 @@ public class EggServlet extends HttpServlet {
 
         BufferedImage bi = new BufferedImage( WIDTH + 2*MARGIN, HEIGHT + 2*MARGIN, BufferedImage.TYPE_INT_RGB );
         Graphics2D g = bi.createGraphics();
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0,0,WIDTH + 2*MARGIN,HEIGHT + 2*MARGIN);
         g.setColor(color);
 
-        g.fillOval( (WIDTH-width)/2+MARGIN, (HEIGHT-height)/2+MARGIN, width, height );
+        //g.fillOval( (WIDTH-width)/2+MARGIN, (HEIGHT-height)/2+MARGIN, width, height );
+        g.fillArc((WIDTH-arcWidth)/2+MARGIN,(HEIGHT-height)+MARGIN,arcWidth,2*arcHeightOval,0,180);
+        g.fillArc((WIDTH-arcWidth)/2+MARGIN,(HEIGHT-height+arcHeightOval-arcHeightCirc)+MARGIN,arcWidth,2*arcHeightCirc,180,180);
         g.dispose();
         ImageIO.write( bi, "jpeg", outStream );
 

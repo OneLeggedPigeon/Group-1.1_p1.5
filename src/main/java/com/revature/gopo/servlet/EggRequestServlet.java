@@ -17,8 +17,8 @@ public class EggRequestServlet extends HttpServlet {
         ServletOutputStream sos = response.getOutputStream();
 
         sos.println( "<html><body>" );
-        sos.println( "<img src='image/egg?height=50&width=50&red=12&green=20&blue=130'>" );
-        sos.println( "<img src='image/egg?height=30&width=80&red=100&green=20&blue=100'>" );
+        sos.println( "<img src='image/egg?height=30&width=50&red=12&green=20&blue=130'>" );
+        sos.println( "<img src='image/egg?height=60&width=500&red=24&green=40&blue=255'>" );
         sos.println( "</body></html>" );
         sos.close();
     }
