@@ -13,7 +13,7 @@
     <option name="tomcatInfo">
       <TomcatInfo>
         <option name="name" value="Apache Tomcat/9.0.44" />
-        <option name="number" value="0" />
+        <option name="number" value="1" />
         <option name="path" value="C:\Users\Nate\Apache Tomcat\apache-tomcat-9.0.44" />
         <option name="version" value="9.0.44.0" />
       </TomcatInfo>
