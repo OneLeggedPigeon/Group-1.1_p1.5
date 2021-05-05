@@ -22,7 +22,6 @@ List of features
 * Connection pooling
 * Lightweight session creation
 * Session-based caching to minimize calls to the database
-* Multithreading support for executing queries
 
 ## Getting Started
    
